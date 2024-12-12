@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carregando Jogo</title>
+    <link rel="stylesheet" href="stylesLoad.css">
+</head>
+<body>
+    <div class="loading-container">
+        <h1>FrogClicker</h1>
+        <h2 id="loadText">Carregando...</h2>
+        <div class="progress-container" id="progress-container-id">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+        <p id="loading-text">0%</p>
+        <div class="button-container">
+            <button id="play-button" style="display: none;" onclick="window.location.href='./index.html'">Play</button>
+        </div>
+    </div>
+
+    <script>
+        let loadtext = document.getElementById('loadText');
+        let progressBar = document.getElementById('progress-bar');
+        let loadingText = document.getElementById('loading-text');
+        let playButton = document.getElementById('play-button');
+        let progress = 0;
+
+        function updateProgress() {
+            if (progress < 100) {
+                progress += 1;
+                progressBar.style.width = progress + '%';
+                loadingText.innerText = progress + '%';
+            } else {
+                clearInterval(progressInterval);
+                onLoadingComplete();
+            }
+        }
+
+        function onLoadingComplete() {
+            setTimeout(() => {
+                loadingText.style.display = 'none';
+                playButton.style.display = 'block';
+                loadtext.textContent = 'Pronto!';
+                document.getElementById("progress-container-id").style.display = 'none';
+            }, 500);
+        }
+
+        let progressInterval = setInterval(updateProgress, 50);  // Simula o progresso a cada 50ms
+    </script>
+</body>
+</html>

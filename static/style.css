@@ -1,0 +1,630 @@
+body {
+    font-family: 'Rubik', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background: url('./ecd67255b08380eb534d3f8ee397bc85.gif') no-repeat center center fixed;
+    background-size: cover;
+    touch-action: manipulation;
+    position: relative;
+}
+
+.container {
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0);
+    padding: 2rem; /* Usar unidades relativas */
+    border-radius: 25px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    width: 90vw; /* Reduzido para aumentar a responsividade */
+    max-width: 400px;
+    animation: fadeIn 1s ease-in-out;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem; /* Ajustado para ser relativo */
+    position: relative;
+}
+
+h1 {
+    font-size: 2rem; /* Usar unidades relativas */
+    color: #333;
+}
+
+.icon-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.counter-container {
+    margin-bottom: 2rem; /* Ajustado para ser relativo */
+}
+
+.counter {
+    font-size: 3rem; /* Ajustado para ser relativo */
+    font-weight: bold;
+    color: white;
+}
+
+.counter-label {
+    font-size: 1.5rem; /* Ajustado para ser relativo */
+    color: white;
+}
+
+.image-container img {
+    transition: transform 0.2s ease;
+    cursor: pointer;
+    max-width: 100%; /* Ajuste para garantir que a imagem não exceda a largura */
+    height: auto; /* Mantenha a proporção da imagem */
+}
+
+.shop-display {
+    display: flex;
+    align-items: center;
+    position: fixed;
+    bottom: 5%; /* Usar porcentagem para ajustar a posição */
+    left: 5%; /* Usar porcentagem para ajustar a posição */
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 0.5rem; /* Ajustado para ser relativo */
+    border-radius: 15px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    transition: all 0.3s ease;
+}
+
+.shop-display:hover {
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+}
+
+.display-icon {
+    width: 3rem; /* Ajustado para ser relativo */
+    height: 3rem; /* Ajustado para ser relativo */
+    margin-right: 0.5rem; /* Ajustado para ser relativo */
+}
+
+.display-number {
+    font-size: 1.5rem; /* Ajustado para ser relativo */
+    font-weight: bold;
+    color: #333;
+}
+
+#click-image {
+    outline: none;
+    user-select: none;
+    -webkit-user-drag: none;
+    border: none;
+    -webkit-tap-highlight-color: transparent; /* Remove o destaque em dispositivos móveis */
+}
+
+#click-image:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+#click-image:active {
+    transform: scale(1.1);
+    outline: none;
+}
+
+img {
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent; /* Remove borda azul em dispositivos móveis */
+}
+
+
+button {
+    display: inline-block;
+    padding: 1rem; /* Usar unidades relativas */
+    font-size: 1.5rem; /* Ajustado para ser relativo */
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 1rem; /* Ajustado para ser relativo */
+    width: 100%;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+button:not(:disabled):hover {
+    background-color: #002fff;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px);
+}
+
+button:disabled {
+    background-color: #4a4e53;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+#open-shop-button {
+    background: linear-gradient(135deg, #a8edea, #fed6e3);
+    border: 2px solid #b0c4de;
+    color: #333;
+    font-weight: bold;
+    font-size: 1.2rem;
+    padding: 0.5rem 1rem;
+    border-radius: 15px; /* Usando o raio de borda definido uma vez */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    width: 180px;
+    max-width: 40%;
+    display: flex;
+    align-items: center;
+    position: fixed;
+    bottom: 5%;
+    right: 10px;
+    background-color: rgba(255, 255, 255, 0.8);
+    transition: all 0.3s ease;
+}
+
+
+#open-shop-button:hover {
+    background: linear-gradient(135deg, #fed6e3, #a8edea);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px); /* Apenas movimento para cima no hover */
+}
+
+#open-shop-button .icon {
+    margin-left: 0.5rem; /* Ajustado para ser relativo */
+    font-size: 1.5rem; /* Ajustado para ser relativo */
+    transition: transform 0.4s ease;
+}
+
+#open-shop-button:hover .icon {
+    transform: scale(1.2);
+}
+
+@keyframes sway {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    50% {
+        transform: translateX(5px);
+    }
+}
+
+#open-shop-button {
+    animation: sway 3s ease-in-out infinite;
+}
+
+.close:hover {
+    color: #ff1a1a;
+    transform: scale(1.1);
+}
+
+/* Animação do clique */
+.plus-one {
+    position: absolute;
+    color: white;
+    font-size: 1.5rem; /* Ajustado para ser relativo */
+    font-weight: bold;
+    animation: floatUp 1s ease-out forwards;
+    pointer-events: none;
+    text-shadow: 0px 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+@keyframes floatUp {
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+}
+
+/* Ajustes para dispositivos móveis */
+@media (max-width: 768px) {
+    .container {
+        width: 90vw;
+        padding: 1rem; /* Ajustado para ser relativo */
+        border-radius: 15px;
+    }
+    button {
+        padding: 0.8rem; /* Ajustado para ser relativo */
+        font-size: 1.2rem; /* Ajustado para ser relativo */
+    }
+    .modal-content {
+        margin: 10vh auto;
+        width: 90%;
+    }
+}
+
+#toggle-music {
+    position: absolute; 
+    top: 1rem; /* Ajustado para ser relativo */
+    left: 1rem; /* Ajustado para ser relativo */
+    background: none;
+    width: 30px;
+    height: 30px;
+    border: none;
+    cursor: pointer;
+    color: white;
+    font-size: 1.5rem; /* Ajustado para ser relativo */
+}
+
+#toggle-music:focus {
+    outline: none;
+}
+
+/* Estilo do modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+    background-color: #333;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%;
+    color: white;
+}
+
+@media (max-width: 768px) {
+    .modal-content {
+        width: 90vw;
+        margin: 10vh auto;
+        padding: 15px;
+    }
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover, .close:focus {
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Estilo das abas dentro do modal */
+.tab {
+    display: flex;
+    justify-content: space-around;
+    background-color: #444;
+    border-bottom: 1px solid #888;
+}
+
+.tab button {
+    flex: 1;
+    text-align: center;
+    background-color: inherit;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 10px;
+    font-size: 14px;
+    transition: background-color 0.3s, transform 0.2s;
+    color: white;
+}
+
+.tab button:hover {
+    background-color: #001aff;
+    transform: translateY(-1px);
+}
+
+.tab button.active {
+    background-color: red;
+}
+
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border-top: none;
+    color: white;
+    background-color: #555;
+    margin-top: 10px;
+}
+
+/* Estilo dos itens da loja */
+.shop-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+}
+
+.shop-item p {
+    margin: 0;
+    font-size: 16px;
+}
+
+.buy-button {
+    padding: 10px;
+    font-size: 14px;
+    width: 45%;
+    transition: background-color 0.3s ease;
+}
+
+.buy-button:hover {
+    background-color: #0056b3;
+}
+
+/* Ajustes para dispositivos móveis */
+@media (max-width: 480px) {
+    .tab button {
+        font-size: 12px;
+        padding: 8px;
+    }
+
+    .buy-button {
+        padding: 8px;
+        font-size: 12px;
+        width: 100%;
+    }
+}
+
+.fly {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background-image: url('./1779592.png');
+    background-size: cover;
+    display: none;
+    transition: left 0.5s ease, top 0.5s ease, transform 0.5s ease; 
+}
+
+.progress-container-style {
+    width: 100%;
+    background-color: #e0e0e0;
+    border-radius: 10px;
+    margin: 10px 0;
+    height: 30px;
+    position: relative;
+    display: none;
+}
+
+.progress-bar-style {
+    height: 100%;
+    width: 0;
+    background-color: blue;
+    border-radius: 10px;
+    transition: width 0.3s ease;
+}
+
+.popup {
+display: none; /* Inicialmente invisível */
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: rgba(0, 0, 0, 0.5); /* Fundo escurecido */
+justify-content: center;
+align-items: center;
+}
+
+.popup-content {
+background-color: rgb(193, 193, 193);
+padding: 20px;
+border-radius: 10px;
+text-align: center;
+width: 300px;
+box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+button {
+margin-top: 15px;
+padding: 10px 20px;
+background-color: #4CAF50;
+color: white;
+border: none;
+border-radius: 5px;
+cursor: pointer;
+}
+
+button:hover {
+background-color: #45a049;
+}
+
+/* Estilos do chat */
+#chat-window {
+    display: none;
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    width: 300px;
+    max-height: 60vh; /* Adapta a altura para telas menores */
+    background: #f4f4f4;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    z-index: 1000;
+}
+
+#chat-header {
+    background: #4caf50;
+    color: white;
+    padding: 15px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+}
+
+#chat-messages {
+    padding: 10px;
+    overflow-y: auto;
+    max-height: calc(60vh - 120px); /* Calcula a altura dinâmica do conteúdo */
+}
+
+.chat-message {
+    margin-bottom: 10px;
+}
+
+.user-message {
+    text-align: right;
+}
+
+.user-message span {
+    display: inline-block;
+    background: #4caf50;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 15px;
+    word-wrap: break-word; /* Quebra o texto em palavras longas */
+}
+
+.response-message {
+    display: flex;
+    align-items: center;
+}
+
+.response-message img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.response-message span {
+    display: inline-block;
+    background: #e0e0e0;
+    padding: 5px 10px;
+    border-radius: 15px;
+    word-wrap: break-word; /* Quebra o texto em palavras longas */
+}
+
+#chat-input {
+    display: flex;
+    padding: 10px;
+    background: #f4f4f4;
+    border-top: 1px solid #ccc;
+}
+
+#chat-input input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    margin-right: 5px;
+}
+
+#chat-input button {
+    background: #4caf50;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+#chat-input button:hover {
+    background: #45a049;
+}
+
+#open-chat-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    z-index: 1000;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    #chat-window {
+        width: 90%;
+        max-height: 70vh;
+        bottom: 5px;
+        right: 5px;
+    }
+
+    #chat-header {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    #chat-messages {
+        padding: 5px;
+    }
+
+    #chat-input {
+        padding: 5px;
+    }
+
+    #chat-input input {
+        padding: 8px;
+        font-size: 12px;
+    }
+
+    #chat-input button {
+        padding: 8px;
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    #chat-window {
+        width: 100%;
+        height: 100%;
+        max-height: 100%;
+        bottom: 0;
+        right: 0;
+        border-radius: 0;
+    }
+
+    #chat-header {
+        font-size: 16px;
+        padding: 10px;
+    }
+
+    #chat-messages {
+        padding: 10px;
+    }
+
+    #chat-input {
+        padding: 10px;
+    }
+}
+#open-chat-button {
+    position: fixed;
+    top: 20px; /* Distância do topo */
+    left: 20px; /* Distância da esquerda */
+    background: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    z-index: 1000; /* Certifique-se de que está acima de outros elementos */
+}

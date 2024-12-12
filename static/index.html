@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frog Clicker</title>
+    <link rel="stylesheet" href="../static/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="counter-container">
+            <div class="counter" id="counter">0</div>
+            <p class="counter-label">Cliques</p>
+        </div>
+        
+        <div class="image-container">
+            <img id="click-image" src="./0f4d17eae37409fcb841ed0322de29ae.gif" alt="Clique Aqui!"> <!-- Ajustado -->
+        </div>
+        <button id="toggle-music" aria-label="Alternar Música">
+            <i id="music-icon" class="fas fa-volume-up"></i>
+        </button>
+        <div id="shop-display" class="shop-display">
+            <img src="./1779592.png" alt="Ícone" class="display-icon"> <!-- Ajustado -->
+            <span id="display-number" class="display-number">0</span>
+        </div>
+        <button id="open-shop-button" class="primary-button">
+            Abrir Loja 
+            <span class="icon">🛒</span>
+        </button>
+        <div id="fly" class="fly" style="display:none;"></div>
+        
+
+        <div id="tutorialPopup" class="popup">
+            <div class="popup-content">
+                <h2>Tutorial!</h2>
+                <p>passo 1: Clica no sapo para ganhar pontos</p>
+                <p>passo 2: use os pontos para comprar melhorias</p>
+                <p>passo 3: repetir! </p>
+                <button onclick="closePopup()">Fechar</button>
+            </div>
+        </div>
+
+
+        <div id="shop-modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Loja</h2>
+    
+                <div class="tab">
+                    <button class="tablinks" onclick="openTab(event, 'Upgrades')">Upgrades</button>
+                    <button class="tablinks" onclick="openTab(event, 'Pesquisa')">Pesquisa</button>
+                    <button class="tablinks" onclick="openTab(event, 'Special')">Special</button>
+                </div>
+    
+                <div id="Upgrades" class="tabcontent">
+                    <h3>Upgrades</h3>
+                    <div class="shop-item">
+                        <p>Aumentar Cliques por Clique (+1)</p>
+                        <button class="buy-button" id="buy-upgrade-1">Comprar por 10 cliques</button>
+                    </div>
+                    <div class="shop-item">
+                        <p>Auto-Clicker (+1 clique por segundo)</p>
+                        <button class="buy-button" id="buy-auto-clicker">Comprar por 50 cliques</button>
+                    </div>
+                </div>
+    
+                <div id="Pesquisa" class="tabcontent">
+                    <h3>Pesquisa</h3>
+                    <div class="shop-item" id="CicloVidaUpdate">
+                        <p>Ciclo de Vida Acelerado (Moscas têm mais 30% de chance de aparecer)</p>
+                        <button class="buy-button" id="buy-ciclo-vida">Comprar por 5000 cliques</button>
+                        <div id="progress-container" class="progress-container-style">
+                            <div id="progress-bar" class="progress-bar-style"></div>
+                        </div>
+                    </div>
+                    <div class="shop-item" id="MaisMoscaUpdate">
+                        <p>Festival dos Insetos (Atrai +1 mosca)</p>
+                        <button class="buy-button" id="buy-mais-mosca">Comprar por 10k cliques</button>
+                        <div id="progress-container-mais-mosca" class="progress-container-style">
+                            <div id="progress-bar-mais-mosca" class="progress-bar-style"></div>
+                        </div>
+                    </div>                    
+                </div>
+    
+                <div id="Special" class="tabcontent">
+                    <h3>Special</h3>
+                    <div class="shop-item">
+                        <p>Sapo do Café (Aumenta cliques em 3x por 5 segundos)</p>
+                        <button class="buy-button" id="buy-sapo-cafe">Comprar por 1 cliques</button>
+                    </div>
+                    <div class="shop-item">
+                        <p>Sapo Fanfarrão (x4 clique por 20 segundos)</p>
+                        <button class="buy-button" id="buy-fanfarra">Comprar por 2 moscas</button>
+                    </div>
+                    <div class="shop-item">
+                        <p>Pulo Múltiplo (duplica a quantidade de cliques por tempo ilimitado)</p>
+                        <button class="buy-button" id="buy-pulo-multiplo">Comprar por 5 moscas</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Botão para abrir o chat -->
+    <button id="open-chat-button" aria-label="Abrir Chat">💬</button>
+    <audio id="background-music" src="./1-01. Key.mp3" loop></audio>
+    <script src="../static/index.js" defer>
+    </script>
+</body>
+</html>

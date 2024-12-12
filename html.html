@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chat Bot</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+    font-family: 'Rubik', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background: url('./static/ecd67255b08380eb534d3f8ee397bc85.gif') no-repeat center center fixed;
+    background-size: cover;
+    touch-action: manipulation;
+    position: relative;
+    }
+
+    .chat-container {
+      max-width: 600px;
+      width: 600px;
+      margin: 50px auto;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      opacity: 0.8;
+    }
+
+    .chat-messages {
+      padding: 20px;
+      height: 400px;
+      overflow-y: auto;
+    }
+    .message {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+    .message.user {
+      justify-content: flex-end;
+    }
+    .message-bot img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+    .message-bubble {
+      max-width: 70%;
+      padding: 10px 15px;
+      border-radius: 20px;
+    }
+    .message.user .message-bubble {
+      background-color: #007bff;
+      color: white;
+      border-bottom-right-radius: 0;
+    }
+    .message-bot .message-bubble {
+      background-color: #e9ecef;
+      color: black;
+      border-bottom-left-radius: 0;
+    }
+    .chat-input {
+      display: flex;
+      padding: 10px;
+      border-top: 1px solid #ddd;
+    }
+    .chat-input input {
+      flex-grow: 1;
+      border: none;
+      padding: 10px;
+      border-radius: 20px;
+      margin-right: 10px;
+      background: #f1f1f1;
+    }
+    .chat-input input:focus {
+      outline: none;
+      background: #e2e2e2;
+    }
+    .chat-input button {
+      border: none;
+      background-color: #007bff;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+    .chat-input button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="chat-container">
+    <div class="chat-messages" id="chatMessages">
+      <!-- Messages will appear here -->
+    </div>
+    <div class="chat-input">
+      <input type="text" id="texto" placeholder="Digite sua mensagem..." onkeydown="handleKeyPress(event)">
+      <button onclick="fazerPergunta()">Enviar</button>
+    </div>
+  </div>
+
+  <script>
+    function handleKeyPress(event) {
+      if (event.key === "Enter") {
+        fazerPergunta();
+      }
+    }
+
+    function fazerPergunta() {
+        const inputTexto = document.getElementById('texto').value.trim();
+        if (!inputTexto) {
+            return;
+        }
+
+        // Adiciona a mensagem do usuário na interface
+        addMessage(inputTexto, 'user');
+
+        // Limpa o campo de entrada
+        document.getElementById('texto').value = '';
+
+        // Simula o bot "escrevendo..."
+        const typingId = addTypingMessage();
+
+        // Fazendo a requisição para a API
+        fetch(`http://127.0.0.1:5000/chat?texto=${encodeURIComponent(inputTexto)}&t=${Date.now()}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Erro ao acessar a API.');
+                }
+                return response.json();
+            })
+            .then(data => {
+                const resposta = data.responser || 'Erro ao obter a resposta.';
+                // Remove o indicador de "escrevendo..."
+                removeTypingMessage(typingId);
+                // Adiciona a resposta do bot
+                addMessage(resposta, 'bot');
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+                removeTypingMessage(typingId);
+                addMessage('Erro ao processar sua solicitação.', 'bot');
+            });
+    }
+
+    // Função para adicionar mensagens ao chat
+    function addMessage(text, sender) {
+        const chatMessages = document.getElementById('chatMessages');
+
+        // Cria os elementos da mensagem
+        const messageDiv = document.createElement('div');
+        messageDiv.classList.add('message', sender === 'user' ? 'user' : 'message-bot');
+
+        // Adiciona a imagem se for o bot
+        if (sender === 'bot') {
+            const img = document.createElement('img');
+            img.src = './sapo.webp'; // Substitua pela URL da imagem do bot
+            img.alt = 'Bot';
+            messageDiv.appendChild(img);
+        }
+
+        const bubbleDiv = document.createElement('div');
+        bubbleDiv.classList.add('message-bubble');
+        bubbleDiv.textContent = text;
+
+        messageDiv.appendChild(bubbleDiv);
+        chatMessages.appendChild(messageDiv);
+
+        // Rola para a última mensagem
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    // Adiciona indicador de "escrevendo..."
+    function addTypingMessage() {
+        const chatMessages = document.getElementById('chatMessages');
+
+        const typingDiv = document.createElement('div');
+        typingDiv.classList.add('message', 'message-bot');
+        typingDiv.id = `typing-${Date.now()}`; // ID único
+
+        const img = document.createElement('img');
+        img.src = './sapo.webp';
+        img.alt = 'Bot';
+
+        const bubbleDiv = document.createElement('div');
+        bubbleDiv.classList.add('message-bubble');
+        bubbleDiv.textContent = 'Escrevendo...';
+
+        typingDiv.appendChild(img);
+        typingDiv.appendChild(bubbleDiv);
+        chatMessages.appendChild(typingDiv);
+
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+
+        return typingDiv.id;
+    }
+
+    // Remove o indicador de "escrevendo..."
+    function removeTypingMessage(typingId) {
+        const typingDiv = document.getElementById(typingId);
+        if (typingDiv) {
+            typingDiv.remove();
+        }
+    }
+  </script>
+</body>
+</html>
